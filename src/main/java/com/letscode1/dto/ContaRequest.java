@@ -3,9 +3,12 @@ package com.letscode1.dto;
 import com.letscode1.model.Conta;
 import com.letscode1.model.TipoConta;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
 
 @Data
+@NoArgsConstructor
 public class ContaRequest {
     private Integer usuarioId;
     private Integer numero;
