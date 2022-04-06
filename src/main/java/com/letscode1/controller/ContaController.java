@@ -2,12 +2,12 @@ package com.letscode1.controller;
 
 import com.letscode1.dto.ContaRequest;
 import com.letscode1.dto.ContaResponse;
+import com.letscode1.model.TipoConta;
+import com.letscode1.projection.ContaView;
 import com.letscode1.service.ContaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 @RequestMapping("/conta")
@@ -17,7 +17,14 @@ public class ContaController {
     ContaService contaService;
 
     @PostMapping
-    public ContaResponse create(@RequestBody ContaRequest contaRequest, Integer usuarioID) {
-        return contaService.create(contaRequest, usuarioID);
+    public ContaResponse create(@RequestBody ContaRequest contaRequest) {
+        return contaService.create(contaRequest);
     }
+
+    @GetMapping("/view")
+    public List<ContaView> getAllContaViewByTipoConta(
+            @RequestParam TipoConta tipoConta) {
+        return contaService.getAllViewByTipoConta(tipoConta);
+    }
+
 }

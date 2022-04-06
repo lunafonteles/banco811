@@ -2,24 +2,24 @@ package com.letscode1.repository;
 
 import com.letscode1.model.Conta;
 import com.letscode1.model.TipoConta;
+import com.letscode1.projection.ContaView;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
 public interface ContaRepository extends JpaRepository<Conta, Integer> {
-//    List<Conta> findBySaldoLessThan(BigDecimal saldo);
-//    List<Conta> findBySaldoGreaterThan(BigDecimal saldo);
-//    List<Conta> findBySaldoBetween(BigDecimal saldoInicial, BigDecimal saldoFinal);
-//    List<Conta> findBySaldoIn(List<BigDecimal> saldos);
-//    List<Conta> findByTipoContaAndSaldoBetween(TipoConta tipoConta, BigDecimal saldoInicial, BigDecimal saldoFinal);
-//    List<Conta> findByUsuario_cpf (String cpf);
-//    Boolean existByTipoConta(TipoConta tipoConta);
+/*    List<Conta> findBySaldoLessThan(BigDecimal saldo);
+    List<Conta> findBySaldoGreaterThan(BigDecimal saldo);
+    List<Conta> findBySaldoBetween(BigDecimal saldoInicial, BigDecimal saldoFinal);
+    List<Conta> findBySaldoIn(List<BigDecimal> saldos);
+    List<Conta> findByTipoContaAndSaldoBetween(TipoConta tipoConta, BigDecimal saldoInicial, BigDecimal saldoFinal);
+    List<Conta> findByUsuario_cpf (String cpf);
+    Boolean existsByTipoConta(TipoConta tipoConta);
 
     @Query(value = "select c from Conta c where (c.tipoConta = :tipoConta and c.usuario.cpf = :cpf)" +
             "or (c.tipoConta = :tipoConta or c.saldo = :saldo)")
@@ -37,4 +37,7 @@ public interface ContaRepository extends JpaRepository<Conta, Integer> {
             @Param("tipoConta") LocalDateTime tipoConta,
             @Param("saldo") BigDecimal saldo
     );
+    */
+
+    List<ContaView> findAllByTipoConta (TipoConta tipoConta);
 }

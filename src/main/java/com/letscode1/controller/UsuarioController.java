@@ -5,7 +5,9 @@ import com.letscode1.dto.UsuarioResponse;
 import com.letscode1.model.Usuario;
 import com.letscode1.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -16,8 +18,26 @@ public class UsuarioController {
     UsuarioService usuarioService;
 
     @GetMapping
-    public List<UsuarioResponse> getAll(@RequestParam(required = false) String nome) {
-        return usuarioService.getAll(nome);
+    public Page<Usuario> getAll(
+            @RequestParam(required = false) String nome,
+            @RequestParam(required = false, defaultValue = "0") int page,
+            @RequestParam(required = false, defaultValue = "3") int size
+            ) {
+        return usuarioService.getAll(nome, page, size);
+    }
+
+    @GetMapping("/cpf")
+    public Page<UsuarioResponse> getAllbyCpf(
+        @RequestParam String cpf,
+        @RequestParam(required = false, defaultValue = "0") int page,
+        @RequestParam(required = false, defaultValue = "3") int size
+    ) {
+        return usuarioService.getAllByCpf(cpf, page, size);
+    }
+
+    @GetMapping("/search")
+    public List<Usuario> search(@RequestParam String search) {
+        return usuarioService.search(search);
     }
 
     @PostMapping

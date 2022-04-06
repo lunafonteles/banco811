@@ -16,7 +16,7 @@ public class ContaResponse {
     private TipoConta tipoConta;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataAtualizacao;
-
+    private Integer usuarioId;
 
     public ContaResponse(Conta conta) {
         this.numero = conta.getNumero();
@@ -25,5 +25,6 @@ public class ContaResponse {
         this.tipoConta = conta.getTipoConta();
         this.dataCriacao = conta.getDataCriacao();
         this.dataAtualizacao = conta.getDataAtualizacao();
+        this.usuarioId = conta.getUsuario().getId();
     }
 }

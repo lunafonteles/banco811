@@ -1,14 +1,22 @@
 spring:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
   jpa:
     database: POSTGRESQL
+    #driverClassName: org.h2.Driver
     show:
     sql: false
     hibernate:
       ddl-auto: none
+      #create
   sql:
     init:
       platform: postgres
   datasource:
     username: csnacfps
+    #sa
     password: iZR7YSw6hYb5i3u_T0h_n0LLdL0udAhL
-    url: jdbc:postgresql:postgres://csnacfps:iZR7YSw6hYb5i3u_T0h_n0LLdL0udAhL@salt.db.elephantsql.com/csnacfps
+    url: jdbc:postgresql://salt.db.elephantsql.com:5432/csnacfps
+    #jdbc:h2:./src/main/java/com/letscode

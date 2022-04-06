@@ -5,9 +5,16 @@ import com.letscode1.dto.UsuarioResponse;
 import com.letscode1.model.Usuario;
 import com.letscode1.repository.UsuarioRepository;
 import com.letscode1.service.UsuarioService;
+import com.letscode1.specification.UsuarioSpecificationBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
@@ -16,15 +23,38 @@ public class UsuarioServiceImpl implements UsuarioService {
     UsuarioRepository usuarioRepository;
 
     @Override
-    public List<UsuarioResponse> getAll(String nome) {
-        if(nome != null) {
-            usuarioRepository.findByNome(nome);
-        } else {
+    public Page<Usuario> getAll(String nome, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(
+                page,
+                size,
+                Sort.Direction.DESC,
+                "nome"
+        );
 
+        if (nome != null) {
+            return usuarioRepository.findByNome(nome, pageRequest);
+        } else {
+            return usuarioRepository.findAll(pageRequest);
         }
-        return UsuarioRepository.toResponse(
-                usuarioRepository.findAll());
     }
+    @Override
+    public List<Usuario> search(String search) {
+        UsuarioSpecificationBuilder builder = new UsuarioSpecificationBuilder();
+        Pattern pattern = Pattern.compile("(\\w+?)(:|<|>)(\\w+?),");
+        Matcher matcher = pattern.matcher(search + ",");
+        while (matcher.find()) {
+            builder.with(matcher.group(1), matcher.group(2), matcher.group(3));
+        }
+
+        Specification<Usuario> spec = builder.build();
+        return usuarioRepository.findAll(spec);
+    }
+
+    @Override
+    public Page<UsuarioResponse> getAllByCpf(String cpf, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.DESC, "cpf");
+            return usuarioRepository.findByCpf(cpf, pageRequest);
+        }
 
     @Override
     public UsuarioResponse create(UsuarioRequest usuarioRequest) {

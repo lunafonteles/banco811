@@ -1,7 +1,6 @@
 package com.letscode1.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.letscode1.dto.UsuarioRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
