@@ -1,6 +1,5 @@
 package com.letscode1.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.letscode1.dto.ContaRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,15 +11,14 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
-@Table(name = "conta")
+@Table(name = "transacao")
 @Entity
 @NoArgsConstructor
 @Getter
 @Setter
 @EntityListeners(AuditingEntityListener.class)
-public class Conta {
+public class Transacao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,25 +38,14 @@ public class Conta {
     @LastModifiedDate
     private LocalDateTime dataAtualizacao;
 
-    @Column(name = "saldo")
+    @Column(name = "valor")
     private BigDecimal saldo;
 
-    @Column(name = "tipo_conta")
-    @Enumerated(EnumType.STRING)
-    private TipoConta tipoConta;
+    @Column(name = "tipo_transacao")
+    private String tipoTransacao;
 
     @ManyToOne()
-    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
-    private Usuario usuario;
+    @JoinColumn(name = "conta_id", referencedColumnName = "id")
+    private Conta conta;
 
-    @OneToMany(mappedBy = "conta", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<Transacao> transacoes;
-
-    public Conta (ContaRequest contaRequest) {
-        this.numero = contaRequest.getNumero();
-        this.agencia = contaRequest.getAgencia();
-        this.saldo = contaRequest.getSaldo();
-        this.tipoConta = contaRequest.getTipoConta();
-    }
 }

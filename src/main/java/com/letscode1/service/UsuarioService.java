@@ -4,7 +4,6 @@ import com.letscode1.dto.UsuarioRequest;
 import com.letscode1.dto.UsuarioResponse;
 import com.letscode1.model.Usuario;
 import org.springframework.data.domain.Page;
-
 import java.util.List;
 
 public interface UsuarioService {
