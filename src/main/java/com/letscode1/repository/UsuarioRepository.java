@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
@@ -25,6 +26,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer>, JpaS
     @Query("select new com.letscode1.dto.UsuarioResponse(u.id, u.cpf, u.nome, u.dataCriacao, u.dataAtualizacao) " +
             "from Usuario u where u.cpf = :cpf")
     Page<UsuarioResponse> findByCpf(@Param("cpf") String cpf, Pageable pageable);
+
+    Optional<Usuario> findByLogin (String login);
 
     List<Usuario> findByNomeAndCpf(String nome, String cpf);
     List<Usuario> findByNomeIsNull();

@@ -65,11 +65,18 @@ public class ContaServiceImpl implements ContaService {
 
     @Override
     public ContaResponse create(ContaRequest contaRequest) {
+        //no contrutor ,String username
+        //var usuario = usuarioRepository.findByLogin(username);
+        //conta.setUsuario(usuario.get());
+        //conta.setTipoConta(contaRequest.getTipoConta());
         contaValidator.validate(contaRequest);
         Conta conta = new Conta(contaRequest);
         conta.setUsuario(usuarioService.getById(contaRequest.getUsuarioId()));
         contaRepository.save(conta);
         return new ContaResponse(conta);
+
+
+
     }
 
 }

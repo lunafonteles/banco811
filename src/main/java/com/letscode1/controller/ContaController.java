@@ -9,6 +9,9 @@ import com.letscode1.service.ContaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -21,6 +24,10 @@ public class ContaController {
 
     @PostMapping
     public ContaResponse create(@RequestBody ContaRequest contaRequest) {
+/*        var username = RequestContextHolder.getRequestAttributes()
+          .getAttribute(USERNAME, RequestAttributes.SCOPE_REQUEST)
+          .toString();
+        return contaService.create(contaRequest, username);*/
         return contaService.create(contaRequest);
     }
 

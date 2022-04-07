@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.context.annotation.Profile;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.domain.PageRequest;
 import java.util.Arrays;
 
@@ -14,13 +16,15 @@ public class UsuarioRepositoryTest {
     @Autowired
     private TestEntityManager entityManager;
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    UsuarioRepository usuarioRepository;
+
     @Test
     public void validar_findAll_vazio_se_repository_branco() {
         var usuarios = usuarioRepository.findAll();
         Assertions.assertEquals(Arrays.asList(), usuarios);
     }
 
+    @Test
     public void trazer_usuarios_cadastrados_no_findAll() {
         Usuario usuario = new Usuario();
         usuario.setNome("Maria");
@@ -39,6 +43,7 @@ public class UsuarioRepositoryTest {
         Assertions.assertEquals(Arrays.asList(usuario, usuario2), usuarios);
     }
 
+    @Test
     public void trazer_usuarios_pelo_nome_com_paginacao() {
         Usuario usuario = new Usuario();
         usuario.setNome("Maria");
@@ -57,7 +62,6 @@ public class UsuarioRepositoryTest {
         var usuarios = usuarioRepository.findByNome("Maria", pageRequest);
         Assertions.assertEquals(1, usuarios.getTotalElements());
         Assertions.assertEquals(usuario, usuarios.stream().findFirst().get());
-
     }
 
 
