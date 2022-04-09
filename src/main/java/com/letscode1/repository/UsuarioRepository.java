@@ -1,7 +1,10 @@
 package com.letscode1.repository;
 
 import com.letscode1.dto.UsuarioResponse;
+import com.letscode1.model.TipoConta;
 import com.letscode1.model.Usuario;
+import com.letscode1.projection.ContaView;
+import com.letscode1.projection.UsuarioView;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -28,6 +31,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer>, JpaS
     Page<UsuarioResponse> findByCpf(@Param("cpf") String cpf, Pageable pageable);
 
     Optional<Usuario> findByLogin (String login);
+
+    List<UsuarioView> findAllByNomeContaining (String nome);
+
 
     List<Usuario> findByNomeAndCpf(String nome, String cpf);
     List<Usuario> findByNomeIsNull();

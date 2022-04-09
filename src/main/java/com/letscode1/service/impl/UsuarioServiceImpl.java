@@ -2,7 +2,10 @@ package com.letscode1.service.impl;
 
 import com.letscode1.dto.UsuarioRequest;
 import com.letscode1.dto.UsuarioResponse;
+import com.letscode1.model.TipoConta;
 import com.letscode1.model.Usuario;
+import com.letscode1.projection.ContaView;
+import com.letscode1.projection.UsuarioView;
 import com.letscode1.repository.UsuarioRepository;
 import com.letscode1.service.UsuarioService;
 import com.letscode1.specification.UsuarioSpecificationBuilder;
@@ -87,5 +90,9 @@ public class UsuarioServiceImpl implements UsuarioService {
     public void delete(Integer id) {
         var usuario = usuarioRepository.findById(id).orElseThrow();
         usuarioRepository.delete(usuario);
+    }
+
+    public List<UsuarioView> getAllByNomeContaining(String nome) {
+        return usuarioRepository.findAllByNomeContaining(nome);
     }
 }

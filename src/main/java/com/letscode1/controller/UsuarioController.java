@@ -3,11 +3,11 @@ package com.letscode1.controller;
 import com.letscode1.dto.UsuarioRequest;
 import com.letscode1.dto.UsuarioResponse;
 import com.letscode1.model.Usuario;
+import com.letscode1.projection.UsuarioView;
 import com.letscode1.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -50,6 +50,12 @@ public class UsuarioController {
         return usuarioService.getById(id);
     }
 
+
+    @GetMapping("/view")
+    public List<UsuarioView> getAllByNomeContaining(
+            @RequestParam String nome) {
+        return usuarioService.getAllByNomeContaining(nome);
+    }
     @PutMapping
     public Usuario update (@PathVariable Integer id, @RequestBody UsuarioRequest usuarioRequest) {
         return usuarioService.update(usuarioRequest, id);
